@@ -1,10 +1,8 @@
-import "package:expandable_page_view/expandable_page_view.dart";
-import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
-import "package:flutter/widgets.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:smooth_page_indicator/smooth_page_indicator.dart";
 import "package:test_app/auth/login/login_form.dart";
+import "package:test_app/components/review_shimmer.dart";
 import "package:test_app/components/reviews_container.dart";
 
 class Login extends StatefulWidget {
@@ -44,16 +42,17 @@ class _LoginState extends State<Login> {
                 Image.asset('assets/images/element_logo.png'),
                 addHeight(28),
                 Flexible(
-                  child: PageView.builder(
-                    controller: _pageController,
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      return const ReviewContainer(
-                          title: 'The perfect platform for African business',
-                          subText:
-                              'Element is an absolute game-changer for African entrepreneurs like myself. It\'s a one-stop shop for all my business banking needs,');
-                    },
-                  ),
+                  child: ReviewShimmer(),
+                  // child: PageView.builder(
+                  //   controller: _pageController,
+                  //   itemCount: 3,
+                  //   itemBuilder: (context, index) {
+                  //     return const ReviewContainer(
+                  //         title: 'The perfect platform for African business',
+                  //         subText:
+                  //             'Element is an absolute game-changer for African entrepreneurs like myself. It\'s a one-stop shop for all my business banking needs,');
+                  //   },
+                  // ),
                 ),
                 addHeight(25),
                 SmoothPageIndicator(
