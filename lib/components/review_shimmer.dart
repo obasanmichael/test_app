@@ -8,8 +8,8 @@ class ReviewShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade500,
+      baseColor: Colors.grey.shade200,
+      highlightColor: Colors.grey.shade400,
       direction: ShimmerDirection.ttb,
       child: Container(
         width: double.infinity,
@@ -21,20 +21,23 @@ class ReviewShimmer extends StatelessWidget {
                 Container(
                   height: 24.h,
                   width: 29.w,
-                  color: Colors.white,
+                  color: Colors.grey.shade100,
                 ),
                 const Spacer(),
-                Container(width: 120.w, height: 24.h, color: Colors.white),
+                Container(
+                    width: 120.w, height: 24.h, color: Colors.grey.shade100),
               ],
             ),
             SizedBox(height: 16.h),
             Container(
-                height: 30.h, width: double.infinity, color: Colors.white),
+                height: 30.h,
+                width: double.infinity,
+                color: Colors.grey.shade100),
             SizedBox(height: 10.h),
             Container(
               height: 90.h,
               width: double.infinity,
-              color: Colors.white,
+              color: Colors.grey.shade100,
             )
           ],
         ),

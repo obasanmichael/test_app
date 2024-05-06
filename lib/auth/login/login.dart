@@ -42,17 +42,17 @@ class _LoginState extends State<Login> {
                 Image.asset('assets/images/element_logo.png'),
                 addHeight(28),
                 Flexible(
-                  child: ReviewShimmer(),
-                  // child: PageView.builder(
-                  //   controller: _pageController,
-                  //   itemCount: 3,
-                  //   itemBuilder: (context, index) {
-                  //     return const ReviewContainer(
-                  //         title: 'The perfect platform for African business',
-                  //         subText:
-                  //             'Element is an absolute game-changer for African entrepreneurs like myself. It\'s a one-stop shop for all my business banking needs,');
-                  //   },
-                  // ),
+                  // child: ReviewShimmer(),
+                  child: PageView.builder(
+                    controller: _pageController,
+                    itemCount: 3,
+                    itemBuilder: (context, index) {
+                      return const ReviewContainer(
+                          title: 'The perfect platform for African business',
+                          subText:
+                              'Element is an absolute game-changer for African entrepreneurs like myself. It\'s a one-stop shop for all my business banking needs,');
+                    },
+                  ),
                 ),
                 addHeight(25),
                 SmoothPageIndicator(
