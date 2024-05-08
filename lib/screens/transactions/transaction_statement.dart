@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:test_app/screens/transactions/components/app_bar.dart';
 import 'package:test_app/screens/transactions/components/filter_container.dart';
 import 'package:test_app/screens/transactions/components/format_container.dart';
@@ -25,7 +26,6 @@ class _TransactionStatementState extends State<TransactionStatement> {
 
   void _openFormatLayer() {
     showModalBottomSheet(
-      
       context: context,
       builder: (context) => const FormatContainer(),
     );
@@ -97,7 +97,9 @@ class _TransactionStatementState extends State<TransactionStatement> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.go('/transaction-success');
+                },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(vertical: 15.h),
                   backgroundColor: Color(0xff4B0082),
