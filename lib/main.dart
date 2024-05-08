@@ -5,12 +5,13 @@ import 'package:go_router/go_router.dart';
 import 'package:test_app/auth/login/login.dart';
 import 'package:test_app/error_page.dart';
 import 'package:test_app/home/home_screen.dart';
+import 'package:test_app/screens/transactions/transaction_statement.dart';
 import 'package:test_app/splash_screen.dart';
 
 void main() => runApp(const MyApp());
 
 final GoRouter _router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/transaction',
   errorPageBuilder: (context, state) => const MaterialPage(child: ErrorPage()),
   routes: [
     GoRoute(
@@ -20,6 +21,10 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/home',
       builder: (BuildContext context, GoRouterState state) => HomeScreen(),
+    ),
+    GoRoute(
+      path: '/transaction',
+      builder: (BuildContext context, GoRouterState state) => TransactionStatement(),
     ),
   ],
 );
