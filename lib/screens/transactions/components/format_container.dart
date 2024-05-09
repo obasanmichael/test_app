@@ -14,7 +14,7 @@ class _FormatContainerState extends State<FormatContainer> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(25.w, 10.h, 10.w, 10.h),
+      padding: EdgeInsets.fromLTRB(25.w, 10.h, 25.w, 30.h),
       child: Column(
         children: [
           Align(
@@ -45,8 +45,11 @@ class _FormatContainerState extends State<FormatContainer> {
               suffixIcon: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.w, horizontal: 15.h),
                 child: RoundCheckBox(
-                  onTap: (onTap) {},
+                  onTap: (val) {
+                    Navigator.pop(context);
+                  },
                   size: 25,
+                  checkedColor: Color(0xff4B0082),
                 ),
               ),
               hintText: 'pdf'.toUpperCase(),
@@ -76,6 +79,7 @@ class _FormatContainerState extends State<FormatContainer> {
                 child: RoundCheckBox(
                   onTap: (onTap) {},
                   size: 25,
+                  checkedColor: Color(0xff4B0082),
                 ),
               ),
               hintText: 'Excel',

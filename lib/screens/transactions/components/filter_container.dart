@@ -99,7 +99,7 @@ class _FilterContainerState extends State<FilterContainer> {
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(vertical: 10.h),
+                padding: EdgeInsets.symmetric(vertical: 18.h),
                 backgroundColor: Color(0xff4B0082),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.r),
@@ -133,10 +133,17 @@ class DateListTile extends StatelessWidget {
       leading: RoundCheckBox(
         onTap: (val) {},
         size: 25,
+        checkedColor: Color(0xff4B0082),
       ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [Text('Last  7 Days'), SizedBox(height: 5.h)],
+        children: [
+          Text(
+            'Last  7 Days',
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
+          SizedBox(height: 5.h)
+        ],
       ),
       subtitle: Text('19 Nov., 2023 - 26 Nov., 2023'),
     );

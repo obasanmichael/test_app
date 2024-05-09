@@ -18,17 +18,48 @@ class _TransactionStatementState extends State<TransactionStatement> {
   Widget addWidth(double width) => SizedBox(width: width.w);
 
   void _openDurationLayer() {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext ctx) => const FilterContainer(),
-    );
+    showModalBottomSheet<dynamic>(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext bc) {
+          return Wrap(children: <Widget>[
+            Container(
+              child: Container(
+                decoration: new BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: new BorderRadius.only(
+                        topLeft: const Radius.circular(25.0),
+                        topRight: const Radius.circular(25.0))),
+                child: FilterContainer(),
+              ),
+            )
+          ]);
+        });
+    // showModalBottomSheet(
+    //   isScrollControlled: true,
+    //   context: context,
+    //   builder: (BuildContext ctx) => const FilterContainer(),
+    // );
   }
 
   void _openFormatLayer() {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => const FormatContainer(),
-    );
+    showModalBottomSheet<dynamic>(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext bc) {
+          return Wrap(children: <Widget>[
+            Container(
+              child: Container(
+                decoration: new BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: new BorderRadius.only(
+                        topLeft: const Radius.circular(25.0),
+                        topRight: const Radius.circular(25.0))),
+                child: FormatContainer(),
+              ),
+            )
+          ]);
+        });
   }
 
   @override
@@ -66,7 +97,7 @@ class _TransactionStatementState extends State<TransactionStatement> {
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
                 suffixIcon: Icon(Icons.keyboard_arrow_down),
-                hintText: 'Format',
+                hintText: 'Duration',
               ),
               onTap: _openDurationLayer,
               readOnly: true,

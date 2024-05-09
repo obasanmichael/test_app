@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class SuccessStatement extends StatelessWidget {
   const SuccessStatement({super.key});
@@ -10,7 +11,6 @@ class SuccessStatement extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Spacer(),
             Image.asset('assets/images/ellipses.png'),
@@ -54,7 +54,9 @@ class SuccessStatement extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.go("/transaction");
+                },
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(vertical: 15.h),
                   backgroundColor: Colors.white,
