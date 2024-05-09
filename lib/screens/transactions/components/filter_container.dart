@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 
 class FilterContainer extends StatefulWidget {
@@ -11,6 +12,46 @@ class FilterContainer extends StatefulWidget {
 }
 
 class _FilterContainerState extends State<FilterContainer> {
+  late final DateTime date;
+  final formatter = DateFormat.yMd();
+  final _fromDateController = TextEditingController();
+  final _toDateController = TextEditingController();
+  DateTime? _selectedFromDate;
+  DateTime? _selectedToDate;
+
+  @override
+  void dispose() {
+    _fromDateController.dispose();
+    _toDateController.dispose();
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  void _presentDatePicker(bool isFromDate) async {
+    final now = DateTime.now();
+    final firstDate = isFromDate
+        ? DateTime(now.day, now.month, now.year - 1)
+        : _selectedFromDate;
+    final pickedDate = await showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: firstDate!,
+      lastDate: now,
+    );
+
+    setState(() {
+      if (pickedDate != null) {
+        if (isFromDate) {
+          _selectedFromDate = pickedDate;
+          _fromDateController.text = DateFormat('dd-MM-yy').format(pickedDate);
+        } else {
+          _selectedToDate = pickedDate;
+          _toDateController.text = DateFormat('dd-MM-yy').format(pickedDate);
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,11 +76,13 @@ class _FilterContainerState extends State<FilterContainer> {
                 fontWeight: FontWeight.w700,
                 color: Colors.black),
           ),
-          DateListTile(),
+          DateListTile(
+            days: 7,
+          ),
           SizedBox(height: 0.h),
-          DateListTile(),
+          DateListTile(days: 14),
           SizedBox(height: 0.h),
-          DateListTile(),
+          DateListTile(days: 21),
           SizedBox(height: 5.h),
           Text(
             'Filter by Calendar',
@@ -49,48 +92,59 @@ class _FilterContainerState extends State<FilterContainer> {
           Row(
             children: [
               Expanded(
-                  child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xff8D8D8E),
+                child: TextField(
+                  controller: _fromDateController,
+                  // onTap: ()=> _presentDatePicker(isFromDate : true),
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xff8D8D8E),
+                      ),
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xff8D8D8E),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xff8D8D8E),
+                      ),
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
-                    borderRadius: BorderRadius.circular(10.r),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
+                    hintText: 'from',
+                    suffixIcon: IconButton(
+                        onPressed: () => _presentDatePicker(true),
+                        icon: Icon(Icons.calendar_month_outlined)),
                   ),
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
-                  hintText: 'from',
-                  suffixIcon: Icon(Icons.calendar_month_outlined),
                 ),
-              )),
+              ),
               SizedBox(width: 16.w),
               Expanded(
-                  child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xff8D8D8E),
+                child: TextField(
+                  controller: _toDateController,
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xff8D8D8E),
+                      ),
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xff8D8D8E),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xff8D8D8E),
+                      ),
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
-                    borderRadius: BorderRadius.circular(10.r),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
+                    hintText: 'to',
+                    suffixIcon: IconButton(
+                        onPressed: () => _presentDatePicker(false),
+                        icon: Icon(Icons.calendar_month_outlined)),
                   ),
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
-                  hintText: 'to',
-                  suffixIcon: Icon(Icons.calendar_month_outlined),
                 ),
-              )),
+              ),
             ],
           ),
           SizedBox(height: 20.h),
@@ -122,12 +176,13 @@ class _FilterContainerState extends State<FilterContainer> {
 }
 
 class DateListTile extends StatelessWidget {
-  const DateListTile({
-    super.key,
-  });
+  const DateListTile({super.key, required this.days});
+
+  final int days;
 
   @override
   Widget build(BuildContext context) {
+    DateTime startDate = DateTime.now().subtract(Duration(days: days));
     return ListTile(
       contentPadding: EdgeInsets.all(0),
       leading: RoundCheckBox(
@@ -139,13 +194,14 @@ class DateListTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Last  7 Days',
+            'Last  ${days} Days',
             style: TextStyle(fontWeight: FontWeight.w700),
           ),
           SizedBox(height: 5.h)
         ],
       ),
-      subtitle: Text('19 Nov., 2023 - 26 Nov., 2023'),
+      subtitle: Text(
+          '${DateFormat('dd/MM/yyyy').format(startDate)} - ${DateFormat('dd/MM/yyyy').format(DateTime.now())}'),
     );
   }
 }

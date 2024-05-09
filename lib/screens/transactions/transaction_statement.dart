@@ -49,14 +49,12 @@ class _TransactionStatementState extends State<TransactionStatement> {
         builder: (BuildContext bc) {
           return Wrap(children: <Widget>[
             Container(
-              child: Container(
-                decoration: new BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: new BorderRadius.only(
-                        topLeft: const Radius.circular(25.0),
-                        topRight: const Radius.circular(25.0))),
-                child: FormatContainer(),
-              ),
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25.0),
+                      topRight: Radius.circular(25.0))),
+              child: FormatContainer(),
             )
           ]);
         });
