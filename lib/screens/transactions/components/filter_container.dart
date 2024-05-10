@@ -43,10 +43,10 @@ class _FilterContainerState extends State<FilterContainer> {
       if (pickedDate != null) {
         if (isFromDate) {
           _selectedFromDate = pickedDate;
-          _fromDateController.text = DateFormat('dd-MM-yy').format(pickedDate);
+          _fromDateController.text = DateFormat('dd/MM/yy').format(pickedDate);
         } else {
           _selectedToDate = pickedDate;
-          _toDateController.text = DateFormat('dd-MM-yy').format(pickedDate);
+          _toDateController.text = DateFormat('dd/MM/yy').format(pickedDate);
         }
       }
     });
@@ -76,12 +76,8 @@ class _FilterContainerState extends State<FilterContainer> {
                 fontWeight: FontWeight.w700,
                 color: Colors.black),
           ),
-          DateListTile(
-            days: 7,
-          ),
-          SizedBox(height: 0.h),
+          DateListTile(days: 7),
           DateListTile(days: 14),
-          SizedBox(height: 0.h),
           DateListTile(days: 21),
           SizedBox(height: 5.h),
           Text(
@@ -111,7 +107,7 @@ class _FilterContainerState extends State<FilterContainer> {
                     ),
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
-                    hintText: 'from',
+                    hintText: 'From',
                     suffixIcon: IconButton(
                         onPressed: () => _presentDatePicker(true),
                         icon: Icon(Icons.calendar_month_outlined)),
@@ -138,7 +134,7 @@ class _FilterContainerState extends State<FilterContainer> {
                     ),
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
-                    hintText: 'to',
+                    hintText: 'To',
                     suffixIcon: IconButton(
                         onPressed: () => _presentDatePicker(false),
                         icon: Icon(Icons.calendar_month_outlined)),
@@ -195,13 +191,15 @@ class DateListTile extends StatelessWidget {
         children: [
           Text(
             'Last  ${days} Days',
-            style: TextStyle(fontWeight: FontWeight.w700),
+            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14.sp),
           ),
           SizedBox(height: 5.h)
         ],
       ),
       subtitle: Text(
-          '${DateFormat('dd/MM/yyyy').format(startDate)} - ${DateFormat('dd/MM/yyyy').format(DateTime.now())}'),
+        '${DateFormat('dd/MM/yyyy').format(startDate)} - ${DateFormat('dd/MM/yyyy').format(DateTime.now())}',
+        style: TextStyle(fontSize: 12.sp),
+      ),
     );
   }
 }
