@@ -5,7 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 
 class FilterContainer extends StatefulWidget {
-  const FilterContainer({super.key});
+  const FilterContainer({super.key, required this.onEnter});
+
+  final void Function(DateTime? fromDate, DateTime? toDate) onEnter;
 
   @override
   State<FilterContainer> createState() => _FilterContainerState();
@@ -147,7 +149,10 @@ class _FilterContainerState extends State<FilterContainer> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                widget.onEnter(_selectedFromDate, _selectedToDate);
+                Navigator.pop(context);
+              },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(vertical: 18.h),
                 backgroundColor: Color(0xff4B0082),
