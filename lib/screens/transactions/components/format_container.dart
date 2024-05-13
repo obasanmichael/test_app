@@ -4,7 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 
 class FormatContainer extends StatefulWidget {
-  const FormatContainer({super.key});
+  const FormatContainer({super.key, required this.onChecked});
+
+  final void Function(String format) onChecked;
 
   @override
   State<FormatContainer> createState() => _FormatContainerState();
@@ -46,6 +48,7 @@ class _FormatContainerState extends State<FormatContainer> {
                 padding: EdgeInsets.symmetric(vertical: 15.w, horizontal: 15.h),
                 child: RoundCheckBox(
                   onTap: (val) {
+                    widget.onChecked('pdf'.toUpperCase());
                     Navigator.pop(context);
                   },
                   size: 25,
@@ -77,7 +80,10 @@ class _FormatContainerState extends State<FormatContainer> {
               suffixIcon: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.w, horizontal: 15.h),
                 child: RoundCheckBox(
-                  onTap: (onTap) {},
+                  onTap: (onTap) {
+                    widget.onChecked('Excel');
+                    Navigator.pop(context);
+                  },
                   size: 25,
                   checkedColor: Color(0xff4B0082),
                 ),

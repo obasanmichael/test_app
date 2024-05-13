@@ -14,8 +14,8 @@ class TransactionStatement extends StatefulWidget {
 }
 
 class _TransactionStatementState extends State<TransactionStatement> {
-  late String _durationText = '';
   final _durationController = TextEditingController();
+  final _formatController = TextEditingController();
   Widget addHeight(double height) => SizedBox(height: height.h);
 
   Widget addWidth(double width) => SizedBox(width: width.w);
@@ -23,8 +23,15 @@ class _TransactionStatementState extends State<TransactionStatement> {
   @override
   void dispose() {
     _durationController.dispose();
+    _formatController.dispose();
     // TODO: implement dispose
     super.dispose();
+  }
+
+  void _updateFormatField(String format) {
+    setState(() {
+      _formatController.text = format;
+    });
   }
 
   void _updateDurationText(DateTime? fromDate, DateTime? toDate) {
@@ -75,7 +82,11 @@ class _TransactionStatementState extends State<TransactionStatement> {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(25.0),
                       topRight: Radius.circular(25.0))),
-              child: FormatContainer(),
+              child: FormatContainer(
+                onChecked: (format) {
+                  _updateFormatField(format);
+                },
+              ),
             )
           ]);
         });
@@ -131,6 +142,7 @@ class _TransactionStatementState extends State<TransactionStatement> {
             ),
             addHeight(16),
             TextFormField(
+              controller: _formatController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
