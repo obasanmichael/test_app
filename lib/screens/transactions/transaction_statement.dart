@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:test_app/screens/transactions/components/app_bar.dart';
 import 'package:test_app/screens/transactions/components/filter_container.dart';
 import 'package:test_app/screens/transactions/components/format_container.dart';
@@ -13,9 +14,27 @@ class TransactionStatement extends StatefulWidget {
 }
 
 class _TransactionStatementState extends State<TransactionStatement> {
+  late String _durationText = '';
+  final _durationController = TextEditingController();
   Widget addHeight(double height) => SizedBox(height: height.h);
 
   Widget addWidth(double width) => SizedBox(width: width.w);
+
+  @override
+  void dispose() {
+    _durationController.dispose();
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  void _updateDurationText(DateTime? fromDate, DateTime? toDate) {
+    if (fromDate != null && toDate != null) {
+      setState(() {
+        _durationController.text =
+            '${DateFormat('dd/MM/yyyy').format(fromDate)} - ${DateFormat('dd/MM/yyyy').format(toDate)}';
+      });
+    }
+  }
 
   void _openDurationLayer() {
     showModalBottomSheet<dynamic>(
@@ -30,7 +49,9 @@ class _TransactionStatementState extends State<TransactionStatement> {
                     borderRadius: new BorderRadius.only(
                         topLeft: const Radius.circular(25.0),
                         topRight: const Radius.circular(25.0))),
-                child: FilterContainer(),
+                child: FilterContainer(
+                  onEnter: _updateDurationText,
+                ),
               ),
             )
           ]);
@@ -60,6 +81,13 @@ class _TransactionStatementState extends State<TransactionStatement> {
         });
   }
 
+  // void _setDurationText(DateTime from, DateTime to) {
+  //   setState(() {
+  //     _durationController.text =
+  //         '${DateFormat('dd/MM/yyyy').format(from)} - ${DateFormat('dd/MM/yyyy').format(to)}';
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,6 +107,7 @@ class _TransactionStatementState extends State<TransactionStatement> {
             ),
             addHeight(24),
             TextFormField(
+              controller: _durationController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
