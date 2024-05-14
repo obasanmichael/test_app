@@ -20,6 +20,13 @@ class _FilterContainerState extends State<FilterContainer> {
   final _toDateController = TextEditingController();
   DateTime? _selectedFromDate;
   DateTime? _selectedToDate;
+  int? _selectedDays;
+
+  void _handleRadioValueChange(int? value) {
+    setState(() {
+      _selectedDays = value;
+    });
+  }
 
   @override
   void dispose() {
@@ -78,9 +85,27 @@ class _FilterContainerState extends State<FilterContainer> {
                 fontWeight: FontWeight.w700,
                 color: Colors.black),
           ),
-          DateListTile(days: 7),
-          DateListTile(days: 14),
-          DateListTile(days: 21),
+          DateListTile(
+            days: 7,
+            groupValue: _selectedDays == 7,
+            onChanged: (bool? value) {
+              _handleRadioValueChange(value! ? 7 : null);
+            },
+          ),
+          DateListTile(
+            days: 14,
+            groupValue: _selectedDays == 14,
+            onChanged: (bool? value) {
+              _handleRadioValueChange(value! ? 14 : null);
+            },
+          ),
+          DateListTile(
+            days: 21,
+            groupValue: _selectedDays == 21,
+            onChanged: (bool? value) {
+              _handleRadioValueChange(value! ? 21 : null);
+            },
+          ),
           SizedBox(height: 5.h),
           Text(
             'Filter by Calendar',
@@ -177,20 +202,30 @@ class _FilterContainerState extends State<FilterContainer> {
 }
 
 class DateListTile extends StatelessWidget {
-  const DateListTile({super.key, required this.days});
+  const DateListTile({
+    super.key,
+    required this.days,
+    required this.groupValue,
+    required this.onChanged,
+  });
 
   final int days;
+  final bool groupValue;
+  final ValueChanged<bool?> onChanged;
 
   @override
   Widget build(BuildContext context) {
     DateTime startDate = DateTime.now().subtract(Duration(days: days));
-    return ListTile(
+    return RadioListTile<bool>(
       contentPadding: EdgeInsets.all(0),
-      leading: RoundCheckBox(
-        onTap: (val) {},
-        size: 25,
-        checkedColor: Color(0xff4B0082),
-      ),
+      // leading: RoundCheckBox(
+      //   onTap: (val) {},
+      //   size: 25,
+      //   checkedColor: Color(0xff4B0082),
+      // ),
+      value: true,
+      groupValue: groupValue,
+      onChanged: onChanged,
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -205,6 +240,14 @@ class DateListTile extends StatelessWidget {
         '${DateFormat('dd/MM/yyyy').format(startDate)} - ${DateFormat('dd/MM/yyyy').format(DateTime.now())}',
         style: TextStyle(fontSize: 12.sp),
       ),
+
+      // (bool? value) {
+      //   if (value != null) {
+      //     setState(() {
+      //       _isChecked = value;
+      //     });
+      //   }
+      // },
     );
   }
 }
