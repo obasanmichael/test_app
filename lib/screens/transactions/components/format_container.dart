@@ -11,7 +11,7 @@ class FormatContainer extends ConsumerStatefulWidget {
   final void Function(String format) onChecked;
 
   @override
-  _FormatContainerState createState() => _FormatContainerState();
+  ConsumerState createState() => _FormatContainerState();
 }
 
 class _FormatContainerState extends ConsumerState<FormatContainer> {

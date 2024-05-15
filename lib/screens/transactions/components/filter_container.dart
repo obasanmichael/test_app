@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:test_app/providers/filter_date_provider.dart';
 
-class FilterContainer extends StatefulWidget {
+class FilterContainer extends ConsumerStatefulWidget {
   const FilterContainer({super.key, required this.onEnter});
 
   final void Function(DateTime? fromDate, DateTime? toDate) onEnter;
 
   @override
-  State<FilterContainer> createState() => _FilterContainerState();
+  ConsumerState<FilterContainer> createState() => _FilterContainerState();
 }
 
-class _FilterContainerState extends State<FilterContainer> {
-  late final DateTime date;
+class _FilterContainerState extends ConsumerState<FilterContainer> {
+  // late final DateTime date;
   final formatter = DateFormat.yMd();
   final _fromDateController = TextEditingController();
   final _toDateController = TextEditingController();
@@ -39,29 +41,40 @@ class _FilterContainerState extends State<FilterContainer> {
     final now = DateTime.now();
     final firstDate = isFromDate
         ? DateTime(now.day, now.month, now.year - 1)
-        : _selectedFromDate;
+        : ref.read(fromDateProvider);
     final pickedDate = await showDatePicker(
       context: context,
       initialDate: now,
-      firstDate: firstDate!,
+      firstDate: firstDate ?? DateTime(now.day, now.month, now.year - 1),
       lastDate: now,
     );
 
-    setState(() {
-      if (pickedDate != null) {
+    if (pickedDate != null) {
+      setState(() {
         if (isFromDate) {
-          _selectedFromDate = pickedDate;
+          ref.read(fromDateProvider.notifier).state = pickedDate;
           _fromDateController.text = DateFormat('dd/MM/yy').format(pickedDate);
         } else {
-          _selectedToDate = pickedDate;
+          ref.read(toDateProvider.notifier).state = pickedDate;
           _toDateController.text = DateFormat('dd/MM/yy').format(pickedDate);
         }
-      }
-    });
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final fromDate = ref.watch(fromDateProvider);
+    final toDate = ref.watch(toDateProvider);
+
+    if (fromDate != null) {
+      _fromDateController.text = DateFormat('dd/MM/yyyy').format(fromDate);
+    }
+
+    if (toDate != null) {
+      _toDateController.text = DateFormat('dd/MM/yyyy').format(toDate);
+    }
+
     return Padding(
       padding: EdgeInsets.fromLTRB(25.w, 10.h, 25.w, 14.h),
       child: Column(
@@ -86,24 +99,24 @@ class _FilterContainerState extends State<FilterContainer> {
           ),
           DateListTile(
             days: 7,
-            groupValue: _selectedDays == 7,
-            onChanged: (bool? value) {
-              _handleRadioValueChange(value! ? 7 : null);
-            },
+            // groupValue: _selectedDays == 7,
+            // onChanged: (bool? value) {
+            //   _handleRadioValueChange(value! ? 7 : null);
+            // },
           ),
           DateListTile(
             days: 14,
-            groupValue: _selectedDays == 14,
-            onChanged: (bool? value) {
-              _handleRadioValueChange(value! ? 14 : null);
-            },
+            // groupValue: _selectedDays == 14,
+            // onChanged: (bool? value) {
+            //   _handleRadioValueChange(value! ? 14 : null);
+            // },
           ),
           DateListTile(
             days: 21,
-            groupValue: _selectedDays == 21,
-            onChanged: (bool? value) {
-              _handleRadioValueChange(value! ? 21 : null);
-            },
+            // groupValue: _selectedDays == 21,
+            // onChanged: (bool? value) {
+            //   _handleRadioValueChange(value! ? 21 : null);
+            // },
           ),
           SizedBox(height: 5.h),
           Text(
@@ -135,7 +148,9 @@ class _FilterContainerState extends State<FilterContainer> {
                         EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
                     hintText: 'From',
                     suffixIcon: IconButton(
-                        onPressed: () => _presentDatePicker(true),
+                        onPressed: () {
+                          _presentDatePicker(true);
+                        },
                         icon: Icon(Icons.calendar_month_outlined)),
                   ),
                 ),
@@ -174,7 +189,7 @@ class _FilterContainerState extends State<FilterContainer> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                widget.onEnter(_selectedFromDate, _selectedToDate);
+                widget.onEnter(fromDate, toDate);
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
@@ -193,38 +208,54 @@ class _FilterContainerState extends State<FilterContainer> {
                 ),
               ),
             ),
-          )
+          ),
+          SizedBox(height: 10.h)
         ],
       ),
     );
   }
 }
 
-class DateListTile extends StatelessWidget {
+class DateListTile extends ConsumerWidget {
   const DateListTile({
     super.key,
     required this.days,
-    required this.groupValue,
-    required this.onChanged,
+    // required this.groupValue,
+    // required this.onChanged,
   });
 
   final int days;
-  final bool groupValue;
-  final ValueChanged<bool?> onChanged;
+  // final bool groupValue;
+  // final ValueChanged<bool?> onChanged;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedDays = ref.watch(datePickerProvider);
     DateTime startDate = DateTime.now().subtract(Duration(days: days));
-    return RadioListTile<bool>(
+
+    bool isSelected = selectedDays == days;
+
+    return ListTile(
       contentPadding: EdgeInsets.all(0),
       // leading: RoundCheckBox(
       //   onTap: (val) {},
       //   size: 25,
       //   checkedColor: Color(0xff4B0082),
       // ),
-      value: true,
-      groupValue: groupValue,
-      onChanged: onChanged,
+      // value: true,
+      // groupValue: groupValue,
+      // onChanged: onChanged,
+      leading: IconButton(
+        onPressed: () {
+          ref.read(datePickerProvider.notifier).state = days;
+        },
+        icon: Image.asset(
+          isSelected
+              ? 'assets/images/radiobuttonfilled.png'
+              : 'assets/images/radiobutton3_unchecked.png',
+          width: 30,
+        ),
+      ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -250,3 +281,6 @@ class DateListTile extends StatelessWidget {
     );
   }
 }
+
+
+// ${DateFormat('dd/MM/yyyy').format(startDate)} - ${DateFormat('dd/MM/yyyy').format(DateTime.now())}
