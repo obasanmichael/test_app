@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:test_app/providers/format_picker_provider.dart';
 
 enum Format { pdf, excel }
 
-class FormatContainer extends StatefulWidget {
+class FormatContainer extends ConsumerStatefulWidget {
   const FormatContainer({super.key, required this.onChecked});
 
   final void Function(String format) onChecked;
 
   @override
-  State<FormatContainer> createState() => _FormatContainerState();
+  _FormatContainerState createState() => _FormatContainerState();
 }
 
-class _FormatContainerState extends State<FormatContainer> {
-  Format? selectedFormat;
+class _FormatContainerState extends ConsumerState<FormatContainer> {
   @override
   Widget build(BuildContext context) {
+    final selectedFormat = ref.watch(formatPickerProvider);
     return Padding(
       padding: EdgeInsets.fromLTRB(25.w, 10.h, 25.w, 30.h),
       child: Column(
@@ -59,9 +60,12 @@ class _FormatContainerState extends State<FormatContainer> {
               suffixIcon: IconButton(
                 onPressed: () {
                   setState(() {
-                    selectedFormat =
+                    ref.read(formatPickerProvider.notifier).state =
                         selectedFormat == Format.pdf ? null : Format.pdf;
                     widget.onChecked('PDF');
+                    Future.delayed(Duration(seconds: 1), () {
+                      Navigator.pop(context);
+                    });
                   });
                 },
                 icon: Image.asset(
@@ -106,9 +110,13 @@ class _FormatContainerState extends State<FormatContainer> {
               suffixIcon: IconButton(
                 onPressed: () {
                   setState(() {
-                    selectedFormat =
+                    ref.read(formatPickerProvider.notifier).state =
                         selectedFormat == Format.excel ? null : Format.excel;
                     widget.onChecked('Excel');
+
+                    Future.delayed(Duration(seconds: 1), () {
+                      Navigator.pop(context);
+                    });
                   });
                 },
                 icon: Image.asset(

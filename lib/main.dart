@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:test_app/auth/login/login.dart';
@@ -8,7 +9,7 @@ import 'package:test_app/home/home_screen.dart';
 import 'package:test_app/screens/success_statement.dart';
 import 'package:test_app/screens/transactions/transaction_statement.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const ProviderScope(child: MyApp()));
 
 final GoRouter _router = GoRouter(
   initialLocation: '/transaction',
