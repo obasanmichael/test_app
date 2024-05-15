@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:roundcheckbox/roundcheckbox.dart';
+
+enum Format { pdf, excel }
 
 class FormatContainer extends StatefulWidget {
   const FormatContainer({super.key, required this.onChecked});
@@ -13,6 +14,7 @@ class FormatContainer extends StatefulWidget {
 }
 
 class _FormatContainerState extends State<FormatContainer> {
+  Format? selectedFormat;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -37,22 +39,36 @@ class _FormatContainerState extends State<FormatContainer> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: Color(0xff8D8D8E),
+                  color: selectedFormat == Format.pdf
+                      ? Color(0xff4B0082)
+                      : Color(0xff8D8D8E),
+                ),
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: selectedFormat == Format.pdf
+                      ? Color(0xff4B0082)
+                      : Color(0xff8D8D8E),
                 ),
                 borderRadius: BorderRadius.circular(10.r),
               ),
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
               prefixIcon: Icon(Icons.picture_as_pdf_outlined),
-              suffixIcon: Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.w, horizontal: 15.h),
-                child: RoundCheckBox(
-                  onTap: (val) {
-                    widget.onChecked('pdf'.toUpperCase());
-                    Navigator.pop(context);
-                  },
-                  size: 25,
-                  checkedColor: Color(0xff4B0082),
+              suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    selectedFormat =
+                        selectedFormat == Format.pdf ? null : Format.pdf;
+                    widget.onChecked('PDF');
+                  });
+                },
+                icon: Image.asset(
+                  selectedFormat == Format.pdf
+                      ? 'assets/images/radiobuttonfilled.png'
+                      : 'assets/images/radiobutton3_unchecked.png',
+                  width: 30,
                 ),
               ),
               hintText: 'pdf'.toUpperCase(),
@@ -70,22 +86,36 @@ class _FormatContainerState extends State<FormatContainer> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: Color(0xff8D8D8E),
+                  color: selectedFormat == Format.excel
+                      ? Color(0xff4B0082)
+                      : Color(0xff8D8D8E),
+                ),
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: selectedFormat == Format.excel
+                      ? Color(0xff4B0082)
+                      : Color(0xff8D8D8E),
                 ),
                 borderRadius: BorderRadius.circular(10.r),
               ),
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 16.w, vertical: 15.h),
               prefixIcon: Icon(Icons.edit_document),
-              suffixIcon: Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.w, horizontal: 15.h),
-                child: RoundCheckBox(
-                  onTap: (onTap) {
+              suffixIcon: IconButton(
+                onPressed: () {
+                  setState(() {
+                    selectedFormat =
+                        selectedFormat == Format.excel ? null : Format.excel;
                     widget.onChecked('Excel');
-                    Navigator.pop(context);
-                  },
-                  size: 25,
-                  checkedColor: Color(0xff4B0082),
+                  });
+                },
+                icon: Image.asset(
+                  selectedFormat == Format.excel
+                      ? 'assets/images/radiobuttonfilled.png'
+                      : 'assets/images/radiobutton3_unchecked.png',
+                  width: 30,
                 ),
               ),
               hintText: 'Excel',
