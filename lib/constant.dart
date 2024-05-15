@@ -1,4 +1,3 @@
-import 'package:test_app/components/carousel_container.dart';
 
 class CarouselItem {
   final String image1;

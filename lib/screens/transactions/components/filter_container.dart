@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:roundcheckbox/roundcheckbox.dart';
 
 class FilterContainer extends StatefulWidget {
   const FilterContainer({super.key, required this.onEnter});

@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:flutter_screenutil/flutter_screenutil.dart";
 import "package:smooth_page_indicator/smooth_page_indicator.dart";
 import "package:test_app/auth/login/login_form.dart";
-import "package:test_app/components/review_shimmer.dart";
 import "package:test_app/components/reviews_container.dart";
 
 class Login extends StatefulWidget {

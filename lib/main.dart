@@ -7,7 +7,6 @@ import 'package:test_app/error_page.dart';
 import 'package:test_app/home/home_screen.dart';
 import 'package:test_app/screens/success_statement.dart';
 import 'package:test_app/screens/transactions/transaction_statement.dart';
-import 'package:test_app/splash_screen.dart';
 
 void main() => runApp(const MyApp());
 
