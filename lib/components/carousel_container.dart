@@ -50,6 +50,7 @@ class CarouselContainer extends StatelessWidget {
                 bottom: 30.w,
                 right: 0,
                 child: const ReviewContainer(
+                  ratingNo: 5,
                     title: 'A Must-Have for African Startups',
                     subText:
                         'Element is an absolute game-changer for African entrepreneurs. It makes it incredibly easy to manage my business finances.'),

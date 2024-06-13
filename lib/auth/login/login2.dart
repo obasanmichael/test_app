@@ -44,6 +44,7 @@ class _Login2State extends State<Login2> {
                   itemCount: 3,
                   itemBuilder: (context, index) {
                     return const ReviewContainer(
+                      ratingNo: 5,
                         title: 'lol', subText: 'i want too');
                   },
                 ),

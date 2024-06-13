@@ -3,14 +3,15 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReviewContainer extends StatelessWidget {
-  const ReviewContainer({
-    super.key,
-    required this.title,
-    required this.subText,
-  });
+  const ReviewContainer(
+      {super.key,
+      required this.title,
+      required this.subText,
+      required this.ratingNo});
 
   final String title;
   final String subText;
+  final double ratingNo;
   Widget addHeight(double height) => SizedBox(height: height.h);
   Widget addWidth(double width) => SizedBox(width: width.w);
 
@@ -38,7 +39,7 @@ class ReviewContainer extends StatelessWidget {
               const Spacer(),
               RatingBar.builder(
                   itemSize: 30,
-                  initialRating: 5,
+                  initialRating: ratingNo,
                   itemCount: 5,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 0),
                   itemBuilder: (context, _) => const Icon(

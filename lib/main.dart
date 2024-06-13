@@ -8,11 +8,12 @@ import 'package:test_app/error_page.dart';
 import 'package:test_app/home/home_screen.dart';
 import 'package:test_app/screens/success_statement.dart';
 import 'package:test_app/screens/transactions/transaction_statement.dart';
+import 'package:test_app/vesti_app/screens/migration_support_form.dart';
 
 void main() => runApp(const ProviderScope(child: MyApp()));
 
 final GoRouter _router = GoRouter(
-  initialLocation: '/transaction',
+  initialLocation: '/',
   errorPageBuilder: (context, state) => const MaterialPage(child: ErrorPage()),
   routes: [
     GoRoute(
@@ -30,6 +31,10 @@ final GoRouter _router = GoRouter(
     GoRoute(
       path: '/transaction-success',
       builder: (BuildContext context, GoRouterState state) => SuccessStatement(),
+    ),
+    GoRoute(
+      path: '/migration-support',
+      builder: (BuildContext context, GoRouterState state) => MigrationSupportForm(),
     ),
   ],
 );
