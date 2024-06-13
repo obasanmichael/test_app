@@ -8,7 +8,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 10.0),
+        padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 10.h),
         child: AppBar(
           leading: CircleAvatar(
             radius: 3,
