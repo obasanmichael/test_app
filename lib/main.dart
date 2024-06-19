@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -9,11 +8,13 @@ import 'package:test_app/home/home_screen.dart';
 import 'package:test_app/screens/success_statement.dart';
 import 'package:test_app/screens/transactions/transaction_statement.dart';
 import 'package:test_app/vesti_app/screens/migration_support_form.dart';
+import 'package:test_app/vesti_app/screens/notifications/notification_page.dart';
+import 'package:test_app/vesti_app/screens/notifications/notification_screen.dart';
 
 void main() => runApp(const ProviderScope(child: MyApp()));
 
 final GoRouter _router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/notifications',
   errorPageBuilder: (context, state) => const MaterialPage(child: ErrorPage()),
   routes: [
     GoRoute(
@@ -26,15 +27,31 @@ final GoRouter _router = GoRouter(
     ),
     GoRoute(
       path: '/transaction',
-      builder: (BuildContext context, GoRouterState state) => TransactionStatement(),
+      builder: (BuildContext context, GoRouterState state) =>
+          TransactionStatement(),
     ),
     GoRoute(
       path: '/transaction-success',
-      builder: (BuildContext context, GoRouterState state) => SuccessStatement(),
+      builder: (BuildContext context, GoRouterState state) =>
+          SuccessStatement(),
     ),
     GoRoute(
       path: '/migration-support',
-      builder: (BuildContext context, GoRouterState state) => MigrationSupportForm(),
+      builder: (BuildContext context, GoRouterState state) =>
+          MigrationSupportForm(),
+    ),
+    GoRoute(
+      path: '/notifications',
+      builder: (BuildContext context, GoRouterState state) =>
+          NotificationScreen(),
+    ),
+    // GoRoute(
+    //   path: '/safelock',
+    //   builder: (BuildContext context, GoRouterState state) => SafelockScreen(),
+    // ),
+    GoRoute(
+      path: '/notificationPage',
+      builder: (BuildContext context, GoRouterState state) => NotificationPage(),
     ),
   ],
 );

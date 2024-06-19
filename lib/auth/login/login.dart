@@ -7,7 +7,6 @@ import 'package:test_app/providers/providers.dart';
 import 'login_form.dart';
 import '../../components/review_shimmer.dart';
 import '../../components/reviews_container.dart';
-// import '../../providers.dart'; // Add this import
 
 class Login extends ConsumerStatefulWidget {
   const Login({super.key});

@@ -49,6 +49,7 @@ dependencies:
   riverpod: ^2.5.1
   flutter_riverpod: ^2.5.1
   dio: ^5.4.3+1
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -95,6 +96,10 @@ flutter:
     - assets/images/ellipses.png
     - assets/images/radiobuttonfilled.png
     - assets/images/radiobutton3_unchecked.png
+    - assets/images/safelock.png
+    - assets/svg/indicator_dot.svg
+    - assets/svg/bi_arrow-right.svg
+    - assets/svg/empty_notification.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
