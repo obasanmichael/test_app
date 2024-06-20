@@ -8,7 +8,6 @@ import 'package:test_app/home/home_screen.dart';
 import 'package:test_app/screens/success_statement.dart';
 import 'package:test_app/screens/transactions/transaction_statement.dart';
 import 'package:test_app/vesti_app/screens/migration_support_form.dart';
-import 'package:test_app/vesti_app/screens/notifications/notification_page.dart';
 import 'package:test_app/vesti_app/screens/notifications/notification_screen.dart';
 
 void main() => runApp(const ProviderScope(child: MyApp()));
@@ -49,10 +48,10 @@ final GoRouter _router = GoRouter(
     //   path: '/safelock',
     //   builder: (BuildContext context, GoRouterState state) => SafelockScreen(),
     // ),
-    GoRoute(
-      path: '/notificationPage',
-      builder: (BuildContext context, GoRouterState state) => NotificationPage(),
-    ),
+    // GoRoute(
+    //   path: '/notificationPage',
+    //   builder: (BuildContext context, GoRouterState state) => NotificationPage(),
+    // ),
   ],
 );
 

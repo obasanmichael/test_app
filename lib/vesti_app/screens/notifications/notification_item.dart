@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
+import 'package:test_app/vesti_app/screens/notifications/notification_page.dart';
 
 class NotificationItem extends StatelessWidget {
   const NotificationItem({super.key});
@@ -20,7 +20,16 @@ class NotificationItem extends StatelessWidget {
           ),
           child: ListTile(
             onTap: () {
-              context.go('/notificationPage');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => NotificationPage(
+                          image: 'assets/images/safelock.png',
+                          title: 'Introducing SafeLock 💸',
+                          body:
+                              'Saving has never been easier! Use Safelock to reach your migration goal. Set aside funds either automatically or as needed and earn interest to cover necessary expenses.',
+                          label: 'Learn more',
+                          onPressed: () {})));
             },
             leading: SvgPicture.asset('assets/svg/indicator_dot.svg'),
             title: Text(
