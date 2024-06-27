@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:test_app/vesti_app/screens/secure_pin.dart';
+import 'package:test_app/vesti_app/lekan_app/screens/secure_pin.dart';
 import 'package:test_app/vesti_app/widgets/button.dart';
 import 'package:test_app/vesti_app/widgets/myDropDown.dart';
 import 'package:test_app/vesti_app/widgets/my_textfield.dart';

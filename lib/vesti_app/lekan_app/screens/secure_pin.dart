@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import 'package:test_app/vesti_app/widgets/account_created.dart';
 import 'package:test_app/vesti_app/widgets/button.dart';
+import 'package:test_app/vesti_app/lekan_app/widgets/account_created.dart';
+
 
 class SecurePinScreen extends StatelessWidget {
   const SecurePinScreen({super.key});

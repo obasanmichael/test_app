@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:test_app/vesti_app/screens/notifications/notification_item.dart';
-import 'package:test_app/vesti_app/widgets/account_verified.dart';
-import 'package:test_app/vesti_app/widgets/verify_account.dart';
+
+import '../../lekan_app/widgets/verify_account.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
