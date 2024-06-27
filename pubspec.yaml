@@ -50,7 +50,8 @@ dependencies:
   flutter_riverpod: ^2.5.1
   dio: ^5.4.3+1
   flutter_svg: ^2.0.10+1
-
+  pin_code_fields: ^8.0.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -97,9 +98,13 @@ flutter:
     - assets/images/radiobuttonfilled.png
     - assets/images/radiobutton3_unchecked.png
     - assets/images/safelock.png
+    - assets/images/PIN.png
+    - assets/images/newsuccess.png
     - assets/svg/indicator_dot.svg
     - assets/svg/bi_arrow-right.svg
     - assets/svg/empty_notification.svg
+    - assets/svg/cancel.svg
+    - assets/svg/bi_arrow_right.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

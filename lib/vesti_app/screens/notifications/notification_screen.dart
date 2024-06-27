@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:test_app/vesti_app/screens/notifications/notification_item.dart';
+import 'package:test_app/vesti_app/widgets/account_verified.dart';
+import 'package:test_app/vesti_app/widgets/verify_account.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -12,6 +14,27 @@ class NotificationScreen extends StatefulWidget {
 
 class _NotificationScreenState extends State<NotificationScreen> {
   bool _notificationIsEmpty = false;
+
+  void _openVerificationLayer() {
+    showModalBottomSheet<dynamic>(
+        isScrollControlled: true,
+        context: context,
+        builder: (BuildContext bc) {
+          return Padding(
+            padding:  EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Wrap(children: <Widget>[
+              Container(
+                  decoration:  BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:  BorderRadius.only(
+                          topLeft:  Radius.circular(25.0),
+                          topRight:  Radius.circular(25.0))),
+                  child: VerifyAccount())
+            ]),
+          );
+        });
+   
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +63,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       appBar: AppBar(
         leading: IconButton(
           icon: SvgPicture.asset('assets/svg/bi_arrow-right.svg'),
-          onPressed: () {},
+          onPressed: _openVerificationLayer,
         ),
         title: Text(
           'Notifications',
