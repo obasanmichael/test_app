@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:test_app/vesti_app/lekan_app/screens/identity_verification.dart';
 import 'package:test_app/vesti_app/widgets/button.dart';
 
