@@ -7,13 +7,14 @@ import 'package:test_app/error_page.dart';
 import 'package:test_app/home/home_screen.dart';
 import 'package:test_app/screens/success_statement.dart';
 import 'package:test_app/screens/transactions/transaction_statement.dart';
+import 'package:test_app/vesti_app/lekan_app/widgets/card_processing.dart';
 import 'package:test_app/vesti_app/screens/migration_support_form.dart';
 import 'package:test_app/vesti_app/screens/notifications/notification_screen.dart';
 
 void main() => runApp(const ProviderScope(child: MyApp()));
 
 final GoRouter _router = GoRouter(
-  initialLocation: '/notifications',
+  initialLocation: '/card-process',
   errorPageBuilder: (context, state) => const MaterialPage(child: ErrorPage()),
   routes: [
     GoRoute(
@@ -43,6 +44,11 @@ final GoRouter _router = GoRouter(
       path: '/notifications',
       builder: (BuildContext context, GoRouterState state) =>
           NotificationScreen(),
+    ),
+    GoRoute(
+      path: '/card-process',
+      builder: (BuildContext context, GoRouterState state) =>
+          CardProcessing(),
     ),
     // GoRoute(
     //   path: '/safelock',

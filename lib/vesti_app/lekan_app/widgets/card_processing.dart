@@ -1,3 +1,5 @@
+import 'package:dotted_border/dotted_border.dart';
+import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,20 +9,114 @@ class CardProcessing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        
-        children: [
-          Text('Card Order Status', style: TextStyle(color: Color(0xff3E6F26), fontSize: 18.sp, fontWeight: FontWeight.w600),),
-          SizedBox(height: 17.h),
-          ListTile(title: Text('We’ve received your card order', style: TextStyle(color: Color(0xff999999), fontSize: 12.sp, fontWeight: FontWeight.w500),), subtitle: Text('date', style: TextStyle(color: Color(0xff999999)),),),
-          SizedBox(height: 5.h,),
-          ListTile(title: Text('Your Card request is processing', style: TextStyle(color: Color(0xff999999), fontSize: 12.sp, fontWeight: FontWeight.w500),),),
-          SizedBox(height: 5.h,),
-          ListTile(title: Text('Card is out for delivery', style: TextStyle(color: Color(0xff999999), fontSize: 12.sp, fontWeight: FontWeight.w500),),),
-          SizedBox(height: 5.h,),
-          ListTile(title: Text('Card has been delievered', style: TextStyle(color: Color(0xff999999), fontSize: 12.sp, fontWeight: FontWeight.w500),),),
-        ],
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Card Order Status',
+              style: TextStyle(
+                  color: Color(0xff3E6F26),
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w600),
+            ),
+            SizedBox(height: 17.h),
+            _buildStep(
+              context,
+              title: "We've received your card order",
+              subtitle: '2:10pm May 20',
+              isActive: true,
+              showLine: true,
+            ),
+            _buildStep(
+              context,
+              title: 'Your Card request is processing',
+            ),
+            _buildStep(
+              context,
+              title: 'Card is out for delivery',
+              subtitle: 'Estimated delivery date: 26th May',
+            ),
+            _buildStep(
+              context,
+              title: 'Card has been delivered',
+            ),
+          ],
+        ),
       ),
     );
   }
+}
+
+Widget _buildStep(BuildContext context,
+    {required String title,
+    String? subtitle,
+    bool isActive = false,
+    bool showLine = false}) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 8.h),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          children: [
+            DottedBorder(
+              borderType: BorderType.Circle,
+              dashPattern: [4, 4],
+              color: isActive ? Colors.green : Colors.grey,
+              strokeWidth: 2,
+              child: Container(
+                width: 24,
+                height: 24,
+                decoration: BoxDecoration(
+                  color: isActive ? Colors.green : Colors.transparent,
+                  shape: BoxShape.circle,
+                ),
+                child: isActive
+                    ? Icon(
+                        Icons.check,
+                        color: Colors.white,
+                        size: 16,
+                      )
+                    : null,
+              ),
+            ),
+            SizedBox(height: 8.h),
+            if (showLine)
+              DottedLine(
+                direction: Axis.vertical,
+                lineLength: 30,
+                lineThickness: 2.0,
+                dashLength: 4.0,
+                dashColor: Colors.grey,
+              ),
+          ],
+        ),
+        SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: isActive ? Colors.black : Colors.grey,
+                ),
+              ),
+              if (subtitle != null)
+                Text(
+                  subtitle,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: isActive ? Colors.black : Colors.grey,
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
 }
