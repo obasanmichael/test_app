@@ -64,7 +64,7 @@ Widget _buildStep(BuildContext context,
             children: [
               DottedBorder(
                 borderType: BorderType.Circle,
-                dashPattern: [4, 4],
+                dashPattern: isActive ? [1, 0] : [4, 4],
                 color: isActive ? Color(0xff3E6F26) : Colors.grey,
                 strokeWidth: 2,
                 child: Container(
