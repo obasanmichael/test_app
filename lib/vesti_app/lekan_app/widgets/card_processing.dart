@@ -55,68 +55,71 @@ Widget _buildStep(BuildContext context,
     bool showLine = false}) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 8.h),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Column(
-          children: [
-            DottedBorder(
-              borderType: BorderType.Circle,
-              dashPattern: [4, 4],
-              color: isActive ? Colors.green : Colors.grey,
-              strokeWidth: 2,
-              child: Container(
-                width: 24,
-                height: 24,
-                decoration: BoxDecoration(
-                  color: isActive ? Colors.green : Colors.transparent,
-                  shape: BoxShape.circle,
-                ),
-                child: isActive
-                    ? Icon(
-                        Icons.check,
-                        color: Colors.white,
-                        size: 16,
-                      )
-                    : null,
-              ),
-            ),
-            SizedBox(height: 8.h),
-            if (showLine)
-              DottedLine(
-                direction: Axis.vertical,
-                lineLength: 30,
-                lineThickness: 2.0,
-                dashLength: 4.0,
-                dashColor: Colors.grey,
-              ),
-          ],
-        ),
-        SizedBox(width: 16),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    child: SizedBox(
+      height: 54.h,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
             children: [
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: isActive ? Colors.black : Colors.grey,
+              DottedBorder(
+                borderType: BorderType.Circle,
+                dashPattern: [4, 4],
+                color: isActive ? Colors.green : Colors.grey,
+                strokeWidth: 2,
+                child: Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    color: isActive ? Colors.green : Colors.transparent,
+                    shape: BoxShape.circle,
+                  ),
+                  child: isActive
+                      ? Icon(
+                          Icons.check,
+                          color: Colors.white,
+                          size: 16,
+                        )
+                      : null,
                 ),
               ),
-              if (subtitle != null)
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: isActive ? Colors.black : Colors.grey,
-                  ),
+              SizedBox(height: 8.h),
+              if (showLine)
+                DottedLine(
+                  direction: Axis.vertical,
+                  lineLength: 20,
+                  lineThickness: 2.0,
+                  dashLength: 4.0,
+                  dashColor: Colors.grey,
                 ),
             ],
           ),
-        ),
-      ],
+          SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: isActive ? Color(0xff3E6F26) : Colors.grey,
+                  ),
+                ),
+                if (subtitle != null)
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: isActive ? Colors.grey : Colors.grey,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
     ),
   );
 }
